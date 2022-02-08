@@ -19,6 +19,8 @@ class CreateInvoiceDetailsTable extends Migration
             $table->integer('quantity');
             $table->integer('total');
 
+            $table->primary(['invoice_id', 'product_id']);
+
             $table->foreign('invoice_id')
                 ->references('invoice_id')
                 ->on('invoices')
