@@ -13,7 +13,7 @@ class InvoiceSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('invoices')->insert([
+        \DB::table('invoices')->insert([
             [
                 "customerName" => "Như Ngọc",
                 "phone" => "0989898989",

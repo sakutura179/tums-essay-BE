@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class InvoiceDetail extends Seeder
+class InvoiceDetailSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class InvoiceDetail extends Seeder
      */
     public function run()
     {
-        DB::table('invoice_details')->insert([
+        \DB::table('invoice_details')->insert([
             [
                 'invoice_id' => 1,
                 'product_id' => 1,

@@ -13,7 +13,7 @@ class ImageSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('images')->insert([
+        \DB::table('images')->insert([
             [
                 'path' => 'upload/short-nhung-den-1.jpg',
                 'product_id' => 1,

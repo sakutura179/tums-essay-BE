@@ -13,7 +13,7 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert([
+        \DB::table('products')->insert([
             [
                 'name' => 'CODUROY SHORT - BLACK',
                 'slug' => 'coduroy-short-black',

@@ -13,7 +13,7 @@ class FeedbackSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('feedback')->insert([
+        \DB::table('feedback')->insert([
             [
                 "customerName" => "QK",
                 "phone" => "0980980987",
