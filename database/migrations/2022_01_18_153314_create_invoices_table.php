@@ -22,7 +22,7 @@ class CreateInvoicesTable extends Migration
             $table->string('district', 30);
             $table->string('ward', 30);
             $table->string('address', 50);
-            $table->text('note')->nullable();
+            $table->text('note');
             $table->integer('total_invoice');
             $table->timestamps();
         });
