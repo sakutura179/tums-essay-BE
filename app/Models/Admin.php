@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Admin extends Model
 {
-    use HasFactory;
+    protected $table = 'admins';
+    protected $primaryKey = 'username';
+    protected $hidden = ['password'];
+
+    public $incrementing = false;
 }

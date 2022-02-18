@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
 
 class InvoiceDetail extends Model
 {
-    use HasFactory;
+    protected $table = 'invoice_details';
+    protected $primaryKey = ['invoice_id', 'product_id'];
+    protected $fillable = ['quantity', 'total'];
+
+    public $incrementing = false;
 }
