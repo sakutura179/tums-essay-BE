@@ -23,6 +23,11 @@ class Invoice extends Model
 
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product', 'invoice_details', 'invoice_id', 'product_id');
+        return $this->belongsToMany(
+            'App\Models\Product',
+            'invoice_details',
+            'invoice_id',
+            'product_id'
+        )->withPivot('quantity', 'total');
     }
 }

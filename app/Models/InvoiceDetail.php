@@ -9,7 +9,7 @@ class InvoiceDetail extends Model
 {
     protected $table = 'invoice_details';
     protected $primaryKey = ['invoice_id', 'product_id'];
-    protected $fillable = ['quantity', 'total'];
+    protected $fillable = ['quantity', 'size', 'total'];
 
     public $incrementing = false;
 }

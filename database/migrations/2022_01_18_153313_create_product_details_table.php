@@ -16,6 +16,8 @@ class CreateProductDetailsTable extends Migration
         Schema::create('product_details', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('size_id');
+            $table->integer('quantity');
+
             $table->primary(['product_id', 'size_id']);
 
             $table->foreign('product_id', 'fk_product_details_products')

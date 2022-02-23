@@ -19,7 +19,6 @@ class ProductSeeder extends Seeder
                 'slug' => 'coduroy-short-black',
                 'price' => 350000,
                 'desc' => '_ THÀNH PHẦN VẢI: 90% COTTON, 10% SPANDEX',
-                'quantity' => 30,
                 'cate_id' => 3,
             ],
             [
@@ -27,7 +26,6 @@ class ProductSeeder extends Seeder
                 'slug' => 'tmg-jacket',
                 'price' => 989000,
                 'desc' => '_ PHIÊN BẢN GIỚI HIỆN ĐẶC BIỆT, KÈM THEO ÁO LÀ HỘP, STICKER',
-                'quantity' => 20,
                 'cate_id' => 4,
             ],
             [
@@ -35,7 +33,6 @@ class ProductSeeder extends Seeder
                 'slug' => 'seem-on-ins-tshirt',
                 'price' => 380000,
                 'desc' => '_THÀNH PHẦN VẢI: 100% COTTON',
-                'quantity' => 50,
                 'cate_id' => 1,
             ],
             [
@@ -43,7 +40,6 @@ class ProductSeeder extends Seeder
                 'slug' => 'relax-button-denim-slim-fit-black',
                 'price' => 500000,
                 'desc' => '_THÀNH PHẦN VẢI : 95% COTTON, 5% ELASTANE',
-                'quantity' => 30,
                 'cate_id' => 2,
             ],
             [
@@ -51,7 +47,6 @@ class ProductSeeder extends Seeder
                 'slug' => 'magnus-glass-black',
                 'price' => 250000,
                 'desc' => '_ BẠN CẦN MỘT CHIẾC KÍNH CẬN MANG VẺ PHÁ CÁCH, PHÙ HỢP CHO CÔNG VIỆC, CHO HỌC, CHO QUẨY VÀ CÓ ĐỘ BỀN CAO THÌ MAGNUS SINH RA LÀ DÀNH CHO BẠN. HÃY YÊN TÂM LÀ KÍNH NÀY PHÙ HỢP VỚI MỌI KHUÔN MẶT. WEAR AND PLAY THÔI!',
-                'quantity' => 0,
                 'cate_id' => 5,
             ],
         ]);

@@ -9,7 +9,7 @@ class Product extends Model
 {
     protected $table = 'products';
     protected $primaryKey = 'product_id';
-    protected $fillable = ['name', 'slug', 'price', 'desc', 'quantity', 'cate_id'];
+    protected $fillable = ['name', 'slug', 'price', 'desc', 'cate_id'];
 
     public function category()
     {
@@ -23,11 +23,21 @@ class Product extends Model
 
     public function sizes()
     {
-        return $this->belongsToMany('App\Models\Size', 'product_details', 'product_id', 'size_id');
+        return $this->belongsToMany(
+            'App\Models\Size',
+            'product_details',
+            'product_id',
+            'size_id'
+        )->withPivot('quantity');
     }
 
     public function invoices()
     {
-        return $this->belongsToMany('App\Models\Invoice', 'invoice_details', 'product_id', 'invoice_id');
+        return $this->belongsToMany(
+            'App\Models\Invoice',
+            'invoice_details',
+            'product_id',
+            'invoice_id'
+        )->withPivot('quantity', 'total');
     }
 }

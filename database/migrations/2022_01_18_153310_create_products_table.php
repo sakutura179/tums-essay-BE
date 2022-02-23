@@ -19,7 +19,6 @@ class CreateProductsTable extends Migration
             $table->string('slug', 200);
             $table->integer('price');
             $table->text('desc', 1000);
-            $table->smallInteger('quantity');
 
             $table->unsignedBigInteger('cate_id');
             $table->foreign('cate_id', 'fk_products_categories')
