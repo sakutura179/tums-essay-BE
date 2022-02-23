@@ -14,10 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::get('products', 'Api\ProductController@index')->name('product.index');
 
 Route::get('categories', 'Api\CategoryController@index')->name('category.index');
+
+Route::post('feedbacks', 'Api\FeedbackController@store')->name('feedback.store');
+
+Route::post('invoices', 'Api\InvoiceController@store')->name('invoice.store');
