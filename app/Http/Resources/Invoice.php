@@ -14,8 +14,7 @@ class Invoice extends JsonResource
      */
     public function toArray($request)
     {
-
-        return 123;
+        //
     }
 
     public static function getInvoice($request)

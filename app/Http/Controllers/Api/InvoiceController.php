@@ -9,7 +9,9 @@ use App\Models\InvoiceDetail;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\Size;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -31,37 +33,51 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $invoice = ResourcesInvoice::getInvoice($request);
+        DB::beginTransaction();
+        try {
+            $invoice = ResourcesInvoice::getInvoice($request);
 
-        Invoice::create($invoice);
+            Invoice::create($invoice);
 
-        $lastestInvoice = Invoice::where('phone', $request->phone)->orderBy('invoice_id', 'desc')->first();
-        $products = $request->products;
-        foreach ($products as $product) {
-            $detail = new InvoiceDetail();
-            $detail->invoice_id = $lastestInvoice->invoice_id;
-            $detail->product_id = $product['id'];
-            $detail->quantity = $product['quantity'];
-            $detail->size = $product['size'];
-            $detail->total = $product['total'];
-            $detail->save();
+            $lastestInvoice = Invoice::where('phone', $request->phone)->orderBy('invoice_id', 'desc')->first();
+            $products = $request->products;
+            foreach ($products as $product) {
+                $detail = new InvoiceDetail();
+                $detail->invoice_id = $lastestInvoice->invoice_id;
+                $detail->product_id = $product['id'];
+                $detail->quantity = $product['quantity'];
+                $detail->size = $product['size'];
+                $detail->total = $product['total'];
+                $detail->save();
 
-            // Lay ra size id
-            $size = Size::where('name', $product['size'])->first();
-            // Lay ra so luong product co size do trong kho
-            $productSize = ProductDetail::where('product_id', $product['id'])->where('size_id', $size->size_id)->first();
-            // SL moi se bang SL cu (tim duoc o tren) - SL mua
-            $newStockQuantity = $productSize->quantity - $product['quantity'];
-            // Cap nhat lai SL moi
-            Product::find($product['id'])->sizes()->updateExistingPivot($size->size_id, ['quantity' => $newStockQuantity]);
+                // Lay ra size id
+                $size = Size::where('name', $product['size'])->first();
+                // Lay ra so luong product co size do trong kho
+                $productSize = ProductDetail::where('product_id', $product['id'])->where('size_id', $size->size_id)->first();
+                // SL moi se bang SL cu (tim duoc o tren) - SL mua
+                $newStockQuantity = $productSize->quantity - $product['quantity'];
+                // Cap nhat lai SL moi
+                Product::find($product['id'])->sizes()->updateExistingPivot($size->size_id, ['quantity' => $newStockQuantity]);
+            }
+
+            DB::commit();
+
+            return response()->json(
+                [
+                    'message' => 'Đặt hàng thành công. Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi.'
+                ],
+                201
+            );
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return response()->json(
+                [
+                    'message' => 'Đặt hàng thất bại. Vui lòng thử lại.'
+                ],
+                500
+            );
         }
-
-        return response()->json(
-            [
-                'message' => 'Đặt hàng thành công. Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi.'
-            ],
-            201
-        );
     }
 
     /**
