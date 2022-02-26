@@ -22,6 +22,10 @@ Route::get('products', 'Api\ProductController@index')->name('product.index');
 
 Route::get('categories', 'Api\CategoryController@index')->name('category.index');
 
+Route::get('feedbacks', 'Api\FeedbackController@index')->name('feedback.index');
 Route::post('feedbacks', 'Api\FeedbackController@store')->name('feedback.store');
 
+Route::get('invoices', 'Api\InvoiceController@index')->name('invoice.index');
 Route::post('invoices', 'Api\InvoiceController@store')->name('invoice.store');
+
+Route::post('login', 'Api\AdminController@auth')->name('admin.auth');
