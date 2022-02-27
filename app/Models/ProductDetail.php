@@ -9,7 +9,7 @@ class ProductDetail extends Model
 {
     protected $table = 'product_details';
     protected $primaryKey = ['product_id', 'size_id'];
-    protected $fillable = ['quantity'];
+    protected $fillable = ['product_id', 'size_id', 'quantity'];
 
     public $incrementing = false;
 }
