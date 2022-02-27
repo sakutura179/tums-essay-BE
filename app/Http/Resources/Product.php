@@ -39,4 +39,15 @@ class Product extends JsonResource
             'image' => $this->images
         ];
     }
+
+    public static function getProduct($request)
+    {
+        return [
+            'cate_id' => $request->cate_id,
+            'name' => $request->name,
+            'slug' => \Str::slug($request->name),
+            'price' => $request->price,
+            'desc' => $request->desc
+        ];
+    }
 }
