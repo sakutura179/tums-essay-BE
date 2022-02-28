@@ -97,9 +97,71 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $product = ResourcesProduct::getProduct($request);
+            Product::find($id)->update($product);
+
+            // Add $reques->size to product_details table
+            $updatedProduct = Product::find($id);
+            // Size Collection trong DB
+            $dbSizesCollection = ProductDetail::where('product_id', $id)->get();
+            // Chi la ra size_id
+            $dbSizes = [];
+            foreach ($dbSizesCollection as $dbSizeCollection)
+                array_push($dbSizes, $dbSizeCollection->size_id);
+
+            // Size moi
+            $sizes = $request->size;
+            foreach ($dbSizesCollection as $dbSizeCollection) {
+                if (!in_array($dbSizeCollection->size_id, $sizes))
+                    $updatedProduct->sizes()->detach($dbSizeCollection->size_id);
+            }
+
+            foreach ($sizes as $size) {
+                if (!in_array($size, $dbSizes)) {
+                    $data = [
+                        'product_id' => $id,
+                        'size_id' => $size,
+                        'quantity' => 30
+                    ];
+                    ProductDetail::create($data);
+                }
+            }
+            // Add $request->image to images table
+            //Delete image in database
+            $dbImages = Image::where('product_id', $id);
+            foreach ($dbImages as $dbImage) {
+                $dbImage->delete();
+            }
+            // Add new images
+            $images = $request->images;
+
+            foreach ($images as $image) {
+                $imgPath = 'upload/';
+                $imgName = $image->getClientOriginalName();
+                // upload image to server
+                $image->move($imgPath, $imgName);
+                // add image to images table
+                $data = [
+                    'product_id' => $id,
+                    'path' => $imgPath . $imgName
+                ];
+                Image::create($data);
+            }
+
+            DB::commit();
+            return response()->json([
+                'message' => 'Update product successfully',
+            ], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

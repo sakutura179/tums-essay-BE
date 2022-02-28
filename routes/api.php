@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('products', 'Api\ProductController@index')->name('product.index');
 Route::post('products', 'Api\ProductController@store')->name('product.store');
+Route::put('products/{id}', 'Api\ProductController@update')->name('product.update');
 Route::delete('products/{id}', 'Api\ProductController@destroy')->name('product.destroy');
 
 Route::get('categories', 'Api\CategoryController@index')->name('category.index');
