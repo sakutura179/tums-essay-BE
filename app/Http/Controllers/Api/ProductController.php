@@ -33,6 +33,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'name' => 'unique:products,name'
+            ],
+            [
+                'name.unique' => 'Product name is already exists'
+            ]
+        );
         DB::beginTransaction();
         try {
             $product = ResourcesProduct::getProduct($request);
@@ -99,6 +108,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $tmp = Product::find($id);
+        if (strtolower($tmp->name) != strtolower($request->name))
+            $this->validate(
+                $request,
+                [
+                    'name' => 'unique:products,name'
+                ],
+                [
+                    'name.unique' => 'Product name is already exists'
+                ]
+            );
+
         DB::beginTransaction();
         try {
             $product = ResourcesProduct::getProduct($request);
@@ -132,7 +153,7 @@ class ProductController extends Controller
             }
             // Add $request->image to images table
             //Delete image in database
-            $dbImages = Image::where('product_id', $id);
+            $dbImages = Image::where('product_id', $id)->get();
             foreach ($dbImages as $dbImage) {
                 $dbImage->delete();
             }

@@ -27,6 +27,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'cateName' => 'unique:categories,name'
+            ],
+            [
+                'cateName.unique' => 'Category name is already exists'
+            ]
+        );
         $category = ResourcesCategory::getCategory($request);
         Category::create($category);
         return response()->json([
@@ -54,6 +63,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate(
+            $request,
+            [
+                'cateName' => 'unique:categories,name'
+            ],
+            [
+                'cateName.unique' => 'Category name is already exists'
+            ]
+        );
         $category = Category::find($id);
         if (!is_null($category)) {
             $data = ResourcesCategory::getCategory($request);
