@@ -44,7 +44,7 @@ class ProductController extends Controller
         );
         DB::beginTransaction();
         try {
-            $product = ResourcesProduct::getProduct($request);
+            $product = ResourcesProduct::setProduct($request);
             Product::create($product);
 
             // Add size and image
@@ -122,7 +122,7 @@ class ProductController extends Controller
 
         DB::beginTransaction();
         try {
-            $product = ResourcesProduct::getProduct($request);
+            $product = ResourcesProduct::setProduct($request);
             Product::find($id)->update($product);
 
             // Add $reques->size to product_details table

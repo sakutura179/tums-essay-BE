@@ -40,7 +40,7 @@ class Product extends JsonResource
         ];
     }
 
-    public static function getProduct($request)
+    public static function setProduct($request)
     {
         return [
             'cate_id' => $request->cate_id,
