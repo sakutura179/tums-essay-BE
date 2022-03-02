@@ -22,7 +22,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return Invoice::all();
+        $invoice = Invoice::all();
+        return ResourcesInvoice::collection($invoice);
     }
 
     /**
@@ -35,7 +36,7 @@ class InvoiceController extends Controller
     {
         DB::beginTransaction();
         try {
-            $invoice = ResourcesInvoice::getInvoice($request);
+            $invoice = ResourcesInvoice::setInvoice($request);
 
             Invoice::create($invoice);
 
@@ -73,7 +74,8 @@ class InvoiceController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Đặt hàng thất bại. Vui lòng thử lại.'
+                    'message' => 'Đặt hàng thất bại. Vui lòng thử lại.',
+                    'error' => $e->getMessage()
                 ],
                 500
             );

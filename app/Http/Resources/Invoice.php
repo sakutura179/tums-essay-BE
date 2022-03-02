@@ -14,10 +14,22 @@ class Invoice extends JsonResource
      */
     public function toArray($request)
     {
-        //
+        return [
+            'invoice_id' => $this->invoice_id,
+            'customerName' => $this->customerName,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'city' => $this->city,
+            'district' => $this->district,
+            'ward' => $this->ward,
+            'address' => $this->address,
+            'note' => $this->note,
+            'total_invoice' => $this->total_invoice,
+            'products' => $this->products
+        ];
     }
 
-    public static function getInvoice($request)
+    public static function setInvoice($request)
     {
         return [
             'customerName' => $request->customerName,
