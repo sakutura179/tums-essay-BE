@@ -15,6 +15,19 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
+    public function income()
+    {
+        // get total_invoice and created_at
+        $invoices = Invoice::all();
+        $data = [];
+        foreach ($invoices as $invoice) {
+            $data[] = [
+                'total_invoice' => $invoice->total_invoice,
+                'created_at' => $invoice->created_at
+            ];
+        }
+        return $data;
+    }
     /**
      * Display a listing of the resource.
      *

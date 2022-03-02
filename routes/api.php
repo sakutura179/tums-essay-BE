@@ -33,6 +33,7 @@ Route::post('feedbacks', 'Api\FeedbackController@store')->name('feedback.store')
 
 Route::get('invoices', 'Api\InvoiceController@index')->name('invoice.index');
 Route::post('invoices', 'Api\InvoiceController@store')->name('invoice.store');
+Route::get('income', 'Api\InvoiceController@income')->name('invoice.income');
 
 Route::get('sizes', 'Api\SizeController@index')->name('size.index');
 
